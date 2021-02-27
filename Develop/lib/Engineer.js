@@ -21,7 +21,7 @@ class Engineer {
         return this.email;
     }
 
-    getGihut () {
+    getGithub () {
         return this.github;
     }
 
