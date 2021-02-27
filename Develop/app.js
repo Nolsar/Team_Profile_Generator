@@ -12,13 +12,38 @@ const render = require("./lib/htmlRenderer");
 
 
 // The project must generate a `team.html` page in the `output` directory, that displays a nicely formatted team roster. Each team member should display the following in no particular order:
-//   * Name
-//   * Role
-//   * ID
-//   * Role-specific property (School, link to GitHub profile, or office number)
+
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+const promptUser = () =>
+  inquirer.prompt([
+      //   * Name
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is your name?',
+    },
+    //   * Role
+    {
+        type: 'input',
+        name: 'role',
+        message: 'What is your role?',
+      },
+      //   * ID
+      {
+        type: 'input',
+        name: 'id',
+        message: 'What is your id?',
+      },
+      //   * Role-specific property (School, link to GitHub profile, or office number)
+      {
+        type: 'input',
+        name: 'Name',
+        message: 'What is your role?',
+      },
+]);
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
