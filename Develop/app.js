@@ -5,6 +5,8 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+const employee = require("./lib/Employee");
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
@@ -19,31 +21,37 @@ const render = require("./lib/htmlRenderer");
 // and to create objects for each team member (using the correct classes as blueprints!)
 const promptUser = () =>
   inquirer.prompt([
-      //   * Name
+
+    //   * Name
     {
       type: 'input',
       name: 'name',
-      message: 'What is your name?',
+      message: "Enter team member's name",
     },
     //   * Role
     {
-        type: 'input',
-        name: 'role',
-        message: 'What is your role?',
-      },
-      //   * ID
-      {
-        type: 'input',
-        name: 'id',
-        message: 'What is your id?',
-      },
-      //   * Role-specific property (School, link to GitHub profile, or office number)
-      {
-        type: 'input',
-        name: 'Name',
-        message: 'What is your role?',
-      },
-]);
+      type: 'list',
+      name: 'role',
+      message: "Select team member's role",
+      choices: [
+        'Engineer',
+        'Intern',
+        'Manager',
+      ]
+    },
+    //   * ID
+    {
+      type: 'input',
+      name: 'id',
+      message: "Eneter team member's ID",
+    },
+    //   * Role-specific property (School, link to GitHub profile, or office number)
+    {
+      type: 'input',
+      name: 'email',
+      message: "Enter team member's email address",
+    },
+  ]);
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
