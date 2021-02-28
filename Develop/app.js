@@ -1,11 +1,10 @@
+const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
-const employee = require("./lib/Employee");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -19,16 +18,22 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-const promptUser = () =>
+
+
+
+// after the questions of the current object are done, you call the initial question function
+
+//function to ask the initial question of who you are creating
+const employeePrompt = () =>
   inquirer.prompt([
 
-    //   * Name
+    //Name
     {
       type: 'input',
       name: 'name',
       message: "Enter team member's name",
     },
-    //   * Role
+    //Role
     {
       type: 'list',
       name: 'role',
@@ -39,19 +44,39 @@ const promptUser = () =>
         'Manager',
       ]
     },
-    //   * ID
+    //ID
     {
       type: 'input',
       name: 'id',
-      message: "Eneter team member's ID",
+      message: "Enter team member's ID",
     },
-    //   * Role-specific property (School, link to GitHub profile, or office number)
+    //Email
     {
       type: 'input',
       name: 'email',
       message: "Enter team member's email address",
     },
-  ]);
+  ])
+  //function for each of the object types
+    .then((response) => {
+      // console.log(response);
+      let roleInfo = response.role;
+      if (response.role === 'Engineer') {
+        roleInfo = 'Github username';
+      } else if (response.role === 'Intern') {
+        roleInfo = 'school'
+      } else {
+        roleInfo = 'office phone number'
+      }
+      inquirer.prompt([{
+        message: `Enter team member's ${roleInfo}`,
+        name: "roleInfo",
+      }])
+    });
+
+employeePrompt();
+  
+  //  
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -59,7 +84,8 @@ const promptUser = () =>
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
+// `output` folder. 
+// You can use the variable `outputPath` above target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
 
