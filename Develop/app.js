@@ -4,7 +4,6 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-var uniqueId = 0;
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -14,9 +13,9 @@ const render = require("./lib/htmlRenderer");
 const teamMembers = [];
 
 
-//function to ask the initial question of who you are creating
+//Generic employee questions
 const questions = [
-  //Role
+  //Team member Role
   {
     type: 'list',
     name: 'role',
@@ -47,25 +46,28 @@ const questions = [
   },
 ];
 
+//Manager specific questions
 const managerQuestions = [{
   type: 'input',
   name: 'office',
   message: 'What is your office number?'
 }];
 
+//Intern specific questions
 const internQuestions = [{
   type: 'input',
   name: 'school',
   message: 'What school did you go to?',
 }];
 
+//Engineer specific questions
 const engineerQuestions = [{
   type: 'input',
   name: 'github',
   message: 'What is your Github username',
 }];
 
-//add employees
+//prompt to add team members
 const moreEmployee = [{
   name: 'confirm',
   type: 'confirm',
@@ -164,122 +166,4 @@ function writeHTML() {
   });
 }
 
-
 Question();
-
-// //Github
-// {
-//   type: "input",
-//     name: "github",
-//       message: "What is your Github username?"
-// },
-//       ]).then(function (engineerRes) {
-//   var newEngineer = new Engineer(engineerRes.name, engineerRes.email, uniqueId, engineerRes.github);
-//   uniqueId = uniqueId++;
-//   console.log(newEngineer);
-//   members.push(newEngineer);
-//   addUser();
-// })
-//     } else if (res.role === "Intern") {
-//   inquirer.prompt([
-//     {
-//       name: "name",
-//       message: "What is your name?",
-//       type: "input"
-//     },
-//     {
-//       name: "email",
-//       type: "input",
-//       message: "What is your email?"
-//     },
-//     {
-//       name: "school",
-//       type: "input",
-//       message: "Where did you graduate from college?"
-//     }
-//   ]).then(function (internRes) {
-//     var newIntern = new Intern(internRes.name, internRes.email, uniqueId, internRes.school);
-//     uniqueId = uniqueId++;
-//     console.log(newIntern)
-//     members.push(newIntern);
-//     addUser();
-//   });
-// } else if (res.role === "Manager") {
-//   inquirer.prompt([
-//     {
-//       name: "name",
-//       message: "What is your name?",
-//       type: "input"
-//     },
-//     {
-//       name: "email",
-//       type: "input",
-//       message: "What is your email?"
-//     },
-//     
-//   ]).then(function (managerRes) {
-//     var newManager = new Manager(managerRes.name, managerRes.email, uniqueId, managerRes.office);
-//     uniqueId = uniqueId++;
-//     console.log(newManager);
-//     members.push(newManager);
-//     addUser();
-//   });
-// };
-
-//   })
-//     .catch (function (err) {
-//   console.log(err);
-// })
-
-// };
-
-// //prompts user if they want to add another team member
-// function addUser() {
-//   inquirer.prompt([
-//     {
-//       name: "continue",
-//       message: "Do you want to add another team member?",
-//       type: "confirm"
-//     }
-//   ]).then(function (confirmRes) {
-//     confirmRes.continue ? employeePrompt() : generateHTML()
-//   })
-// };
-
-// function generateHTML() {
-//   console.log(members);
-//   function renderManager() {
-//   };
-//   function renderIntern() {
-//   };
-//   function renderEngineer() {
-//   };
-// }
-
-
-
-// employeePrompt();
-
-
-
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. 
-// You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work!
